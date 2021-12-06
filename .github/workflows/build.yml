@@ -25,12 +25,20 @@ jobs:
     - name: Generate release tag
       id: tag
       run: echo "::set-output name=release_tag::NetDebugger_$(Get-Date -Format "yyyy.MM.dd_HH_mm")"
-    - name: Release bin files
-      uses: softprops/action-gh-release@v1
+    # - name: Release bin files
+    #   uses: softprops/action-gh-release@v1
+    #   with:
+    #     tag_name: ${{ steps.tag.outputs.release_tag }}
+    #     files: |
+    #       Bin/NetDebugger_Debug_x86.exe
+    #       Bin/NetDebugger_Debug_x64.exe
+    #       Bin/NetDebugger_Release_x86.exe
+    #       Bin/NetDebugger_Release_x64.exe
+    - name: Upload Bin files
+      uses: actions/upload-artifact@v2
       with:
-        tag_name: ${{ steps.tag.outputs.release_tag }}
-        files: |
-          Bin/NetDebugger_Debug_x86.exe
-          Bin/NetDebugger_Debug_x64.exe
-          Bin/NetDebugger_Release_x86.exe
-          Bin/NetDebugger_Release_x64.exe
+        path: |
+            Bin/NetDebugger_Debug_x86.exe
+            Bin/NetDebugger_Debug_x64.exe
+            Bin/NetDebugger_Release_x86.exe
+            Bin/NetDebugger_Release_x64.exe
